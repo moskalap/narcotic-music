@@ -24,7 +24,29 @@ def add_note(note, octave, variation):
         'g': []
 
     }
+def get_shape(shape, board):
+    return {
+        'square':[[False, False, False, True,  False, False, False],
+                  [False, False, True,  False, True,  False, False],
+                  [False, True,  False, False, False, True,  False]],
+        'triangle':[]
 
+    }
+
+def build_board():
+    board = {'b': [],
+             'c':[],
+             'c#':[],
+             'd':[],
+             'd#':[],
+             'e':[],
+             'f':[],
+             'f#':[],
+             'g':[],
+             'g#':[],
+             'a':[],
+             'a#':[]
+             }
 
 
 
