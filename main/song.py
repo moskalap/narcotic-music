@@ -6,7 +6,7 @@ class Track:
         self.tacts.append(tact)
 
 class Song:
-    def __int__(self, title, tempo, metre):
+    def __init__(self, title, tempo, metre):
         self.title = title
         self.tempo = tempo
         self.metre = metre
