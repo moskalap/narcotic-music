@@ -22,7 +22,7 @@ MyMIDI.addTempo(track, time, tempo)
 
 for i, pitch in enumerate(degrees):
     MyMIDI.addNote(track, channel, pitch, time + i, duration, volume)
-
+`
 with open("major-scale.mid", "wb") as output_file:
     MyMIDI.writeFile(output_file)
 

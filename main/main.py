@@ -1,82 +1,26 @@
-import random
+from parser import Parser
+from composer import Composer
 
-
-from midiutil.MidiFile3 import MIDIFile
-def get_pitch(note, octave):
-    return{
-        'a':21,
-        'b':23,
-        'c':24,
-        'd':26,
-        'e':28,
-        'f':29,
-        'g':31
-    }[note]+12*octave
-
-def add_note(note, octave, variation):
-    return{
-        'a': [],
-        'b': [],
-        'c': [],
-        'd': [],
-        'e': [],
-        'f': [],
-        'g': []
-
-    }
-def get_shape(shape, board):
-    return {
-        'square':[[False, False, False, True,  False, False, False],
-                  [False, False, True,  False, True,  False, False],
-                  [False, True,  False, False, False, True,  False]],
-        'triangle':[]
-
-    }
-
-def build_board():
-    board = {'b': [],
-             'c':[],
-             'c#':[],
-             'd':[],
-             'd#':[],
-             'e':[],
-             'f':[],
-             'f#':[],
-             'g':[],
-             'g#':[],
-             'a':[],
-             'a#':[]
-             }
-
-
-
-track = 0
-channel = 0
-time = 0  # In beats
-duration = 10  # In beats
-tempo = 120  # In BPM
-volume = 100  # 0-127, as per the MIDI standard
-
-MyMIDI = MIDIFile(1)  # One track, defaults to format 1 (tempo track is created
-    # automatically)
-MyMIDI.addTempo(track, time, tempo)
-
-MyMIDI.addNote(track, channel, get_pitch('c', 3), time+4, duration, volume)
-MyMIDI.addNote(track, channel, get_pitch('c', 2), time+3, duration, volume)
-MyMIDI.addNote(track, channel, get_pitch('e', 3), time+2, duration, volume)
-MyMIDI.addNote(track, channel, get_pitch('g', 3), time+1, duration, volume)
-time=5
-MyMIDI.addNote(track, channel, get_pitch('c', 3), time+1, duration, volume)
-MyMIDI.addNote(track, channel, get_pitch('a', 2), time+2, duration, volume)
-MyMIDI.addNote(track, channel, get_pitch('f', 3), time+3, duration, volume)
-MyMIDI.addNote(track, channel, get_pitch('b', 3), time+4, duration, volume)
-
-with open("major-scales.mid", "wb") as output_file:
-    MyMIDI.writeFile(output_file)
-
-
-
-
-
-
-
+p = Parser()
+a = p.get_args()
+composer = Composer(
+    length=a.length,
+    instruments_list=a.instruments,
+    tempo=a.tempo,
+    output=a.output,
+    samples=a.samples,
+    bass_sample=a.bass,
+    sample_length=a.sample_length,
+    step=a.step,  # average difference of pitch note change
+    tracks=a.tracks,
+    intense=a.intense,  # intense of sample in time
+    flow_ratio=a.flow_ratio,  # frequency of note pitch change ratio <-(0,100)
+    seed_ratio=a.seed_ratio,  # frequency of seeding in harmonical samples<-(0,100)
+    seed_range=a.seed_range,  # range of seeding in harmonical samples <-(0,100)
+    down_willing_ratio=a.down_ratio,  # ratio of getting low witch pitch in harmonical samples
+    jump=a.jump,  # avarega pitch diference in bass line
+    rude=a.rude,  # ratio of ignoring parameters, and gerating random in bassline
+    key=a.key,  # key in which music is generated
+    losing=a.losing
+)
+composer.compose()
