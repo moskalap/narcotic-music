@@ -60,13 +60,13 @@ class Parser:
         self.parser.add_argument("-inst", "--instruments", help=self.read_instruments(),
                                  nargs='+', default=[34, 44, 57], type=int)
         self.args = self.parser.parse_args()
-        print(self.args.instruments)
+
 
     def get_args(self):
         return self.args
 
     def read_instruments(self):
-        with open("instruments.txt") as f:
+        with open("resources/instruments.txt") as f:
             content = f.readlines()
         comm = "list of instruments to use\nfor example\n-inst 1 2 3 4 5 6\nInstruments:\n"
         for x in content:

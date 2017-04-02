@@ -1,7 +1,7 @@
 import random
 
-from sample import Sample
-from note import Note
+from scripts.note import Note
+from scripts.sample import Sample
 
 
 class Track:
@@ -61,8 +61,8 @@ class Track:
             self.convert_sample_to_note(self.samples[i], i * changes, (i + 1) * changes, key, pitch_start)
 
     def convert_sample_to_note(self, sample, start, end, key, pitch, shadowing=90,
-                               volume_range=list(range(90, 100)), duration_range=list(range(1, 3)),
-                               delay_range=list(range(1, 2))):
+                               volume_range=list(range(90, 100)), duration_range=list(range(1, 2)),
+                               delay_range=list(range(1, 8))):
         diff = 0
         board_len = end - start
         possible = Note.get_possible_notes(key)
@@ -92,6 +92,6 @@ class Track:
 
                     pitch = R_MAX - note + 12 * diff
                     if pitch in possible and random.randint(0, 100) < 100:
-                        n = Note(time=time, duration=1,
+                        n = Note(time=time, duration=1+random.choice(duration_range),
                                  pitch=pitch)
                         self.board[time].append(n)

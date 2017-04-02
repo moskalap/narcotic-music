@@ -1,9 +1,6 @@
 import random
-
-from song import Song
-
-from track import Track
-
+from scripts.track import Track
+from scripts.song import Song
 
 class Composer:
     """Class responsible for composing music"""
@@ -63,4 +60,4 @@ class Composer:
                       down_willing_ratio=self.down_willing_ratio, key=self.key))
         if self.bass_sample:
             self.song.add_track(Track(0, 35, self.length, self.tempo, 1, True, 15, intense=90, key=self.key))
-        self.song.save_song()
+        self.song.save_song(self.output)

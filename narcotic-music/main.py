@@ -1,5 +1,5 @@
-from parser import Parser
-from composer import Composer
+from scripts.parser import Parser
+from scripts.composer import Composer
 
 p = Parser()
 a = p.get_args()
